@@ -16,7 +16,7 @@ When breast cancer spreads to other parts of the body, it is said to have metast
 
 Kinds of Breast Cancer:
 
-**Invasive ductal carcinoma: **
+**Invasive ductal carcinoma:** 
 
 The cancer cells begin in the ducts and then grow outside the ducts into other parts of the breast tissue. 
 
