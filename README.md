@@ -29,7 +29,7 @@ Cancer cells begin in the lobules and then spread from the lobules to the breast
 These invasive cancer cells can also spread to other parts of the body.
 
 
-# **Breast Cancer App:**
+** # Breast Cancer App:**
 
 I have created a streamlit Application that is used to predict that if a women has a breast cancer or not.
 
