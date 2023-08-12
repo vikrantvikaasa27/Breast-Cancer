@@ -11,18 +11,14 @@ data = load_breast_cancer()
 X = data.data
 y = data.target
 
-# Standardize the features
+# Standardize the features for the selected features only
 scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X)
-
-# Feature selection
-# Select the top 10 most important features
-k_best = SelectKBest(score_func=f_classif, k=10)
-X_kbest = k_best.fit_transform(X_scaled, y)
+X_kbest = SelectKBest(score_func=f_classif, k=10).fit_transform(X, y)
+X_scaled = scaler.fit_transform(X_kbest)
 
 # Train an SVM classifier on the selected features
 model = SVC(kernel='linear')
-model.fit(X_kbest, y)
+model.fit(X_scaled, y)
 
 # Streamlit app
 st.title("Breast Cancer Prediction")
@@ -44,7 +40,7 @@ def get_user_input(selected_feature_names):
     return np.array(input_features).reshape(1, -1)
 
 # Get user input for the selected features
-selected_feature_names = data.feature_names[k_best.get_support()]
+selected_feature_names = data.feature_names[SelectKBest(score_func=f_classif, k=10).fit(X, y).get_support()]
 user_input = get_user_input(selected_feature_names)
 
 # Display an image
@@ -56,11 +52,8 @@ if user_input is not None:
     # Standardize the user input
     user_input_scaled = scaler.transform(user_input)
 
-    # Feature selection for user input
-    user_input_kbest = k_best.transform(user_input_scaled)
-
     # Make prediction
-    prediction = model.predict(user_input_kbest)
+    prediction = model.predict(user_input_scaled)
 
     # Display prediction
     prediction_text = "Benign (0)" if prediction[0] == 0 else "Malignant (1)"
